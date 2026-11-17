@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block title %}Login | Conecta{% endblock %}
+{% block content %}
+<div class="auth-card">
+  <h2>Bem-vindo de volta</h2><p class="muted">Entre na sua conta para continuar.</p>
+  <form method="POST">
+    <label class="form-label">E-mail</label>
+    <input class="form-control mb-3" type="email" name="email" required>
+    <label class="form-label">Senha</label>
+    <input class="form-control mb-4" type="password" name="senha" required>
+    <button class="btn btn-primary w-100" type="submit">Entrar</button>
+  </form>
+  <p class="text-center mt-3 mb-0">Ainda não tem conta? <a href="{{ url_for('cadastro') }}">Cadastre-se</a></p>
+</div>
+{% endblock %}

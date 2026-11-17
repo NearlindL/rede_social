@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block title %}Chat | Conecta{% endblock %}
+{% block head %}<script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>{% endblock %}
+{% block content %}
+<div class="chat-wrap">
+  <div class="feed-heading"><div><h1>Chat coletivo</h1><p class="muted">Converse em tempo real com quem está online.</p></div><span class="online-pill">● Ao vivo</span></div>
+  <div id="messages" class="messages" aria-live="polite"></div>
+  <form id="chat-form" class="chat-form">
+    <input id="message-input" class="form-control" type="text" maxlength="500" placeholder="Digite sua mensagem..." autocomplete="off">
+    <button class="btn btn-primary" type="submit">Enviar</button>
+  </form>
+</div>
+{% endblock %}
+{% block scripts %}
+<script>
+  const socket = io();
+  const messages = document.getElementById("messages");
+  const form = document.getElementById("chat-form");
+  const input = document.getElementById("message-input");
+
+  socket.on("connect", () => socket.emit("join"));
+  socket.on("showmsg", (data) => {
+    const item = document.createElement("div");
+    item.className = "message-item";
+    const author = document.createElement("strong");
+    author.textContent = data.usuario + ": ";
+    const body = document.createElement("span");
+    body.textContent = data.mensagem;
+    item.appendChild(author);
+    item.appendChild(body);
+    messages.appendChild(item);
+    messages.scrollTop = messages.scrollHeight;
+  });
+
+  form.addEventListener("submit", (event) => {
+    event.preventDefault();
+    const mensagem = input.value.trim();
+    if (mensagem) {
+      socket.emit("msg", { mensagem: mensagem });
+      input.value = "";
+      input.focus();
+    }
+  });
+</script>
+{% endblock %}

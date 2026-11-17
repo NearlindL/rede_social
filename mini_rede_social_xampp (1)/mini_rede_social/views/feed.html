@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block title %}Feed | Conecta{% endblock %}
+{% block content %}
+<div class="feed-heading">
+  <div><h1>Feed</h1><p class="muted">Veja o que a comunidade está compartilhando.</p></div>
+  <a href="{{ url_for('chat_page') }}" class="btn btn-outline-primary">Abrir chat</a>
+</div>
+
+<section class="post-form card-soft mb-4">
+  <h5>Compartilhe uma foto</h5>
+  <form action="{{ url_for('upload') }}" method="POST" enctype="multipart/form-data">
+    <input class="form-control mb-2" type="file" name="file" accept=".png,.jpg,.jpeg,.gif" required>
+    <input class="form-control mb-3" type="text" name="legenda" maxlength="255" placeholder="Escreva uma legenda...">
+    <button class="btn btn-primary" type="submit">Publicar</button>
+  </form>
+</section>
+
+{% for post in posts %}
+<article class="post-card">
+  <div class="post-author"><div class="avatar">{{ post.autor.nome[:1]|upper }}</div><div><strong>{{ post.autor.nome }}</strong><div class="muted small">{{ post.data_post.strftime('%d/%m/%Y às %H:%M') }}</div></div></div>
+  <img class="post-image" src="{{ url_for('static', filename='uploads/' ~ post.imagem) }}" alt="Foto publicada por {{ post.autor.nome }}">
+  {% if post.legenda %}<p class="post-caption">{{ post.legenda }}</p>{% endif %}
+</article>
+{% else %}
+<div class="empty-state"><h4>Nenhuma publicação ainda</h4><p>Seja a primeira pessoa a compartilhar uma foto!</p></div>
+{% endfor %}
+{% endblock %}

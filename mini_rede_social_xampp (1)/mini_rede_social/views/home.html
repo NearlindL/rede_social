@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="hero text-center">
+  <div class="hero-icon">✦</div>
+  <h1>Compartilhe momentos.<br><span>Conecte pessoas.</span></h1>
+  <p>Publique suas fotos, acompanhe o feed e converse em tempo real.</p>
+  <div class="d-flex gap-2 justify-content-center flex-wrap">
+    <a class="btn btn-primary btn-lg" href="{{ url_for('cadastro') }}">Começar agora</a>
+    <a class="btn btn-outline-secondary btn-lg" href="{{ url_for('login') }}">Já tenho conta</a>
+  </div>
+</section>
+{% endblock %}

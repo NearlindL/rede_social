@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block title %}Cadastro | Conecta{% endblock %}
+{% block content %}
+<div class="auth-card">
+  <h2>Criar conta</h2><p class="muted">Entre para compartilhar seus momentos.</p>
+  <form method="POST">
+    <label class="form-label">Nome / Nickname</label>
+    <input class="form-control mb-3" type="text" name="nome" maxlength="100" required>
+    <label class="form-label">E-mail</label>
+    <input class="form-control mb-3" type="email" name="email" required>
+    <label class="form-label">Senha</label>
+    <input class="form-control mb-4" type="password" name="senha" minlength="6" required>
+    <button class="btn btn-primary w-100" type="submit">Cadastrar</button>
+  </form>
+  <p class="text-center mt-3 mb-0">Já possui conta? <a href="{{ url_for('login') }}">Entrar</a></p>
+</div>
+{% endblock %}
